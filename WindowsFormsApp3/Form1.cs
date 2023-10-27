@@ -16,6 +16,8 @@ namespace WindowsFormsApp3
         private int[,] scoreGrid;
         private Player currentPlayer;
         private List<Player> players;
+        List<Block> playerBlocks = new List<Block>();
+
 
         public BlockUs()
         {
@@ -102,9 +104,20 @@ namespace WindowsFormsApp3
             {
                 if (grid[x, y] == Color.White)
                 {
+                    Block block1 = new Block(new bool[,] { { true, true, false } }, players.IndexOf(currentPlayer), currentPlayer.GetCurrentColor());
+                    Block block2 = new Block(new bool[,] { { true, false, false } }, players.IndexOf(currentPlayer), currentPlayer.GetCurrentColor());
+                    Block block3 = new Block(new bool[,] { { true, true, false } }, players.IndexOf(currentPlayer), currentPlayer.GetCurrentColor());
+                    playerBlocks.Add(block1);
+                    playerBlocks.Add(block2);
+                    playerBlocks.Add(block3);
+
                     grid[x, y] = currentPlayer.GetCurrentColor();
                     this.Invalidate();
-                    SwitchPlayer();
+
+                    if (playerBlocks.Count == 3) {
+                        SwitchPlayer();
+                        playerBlocks.Clear();
+                    }
                 }
             }
             
