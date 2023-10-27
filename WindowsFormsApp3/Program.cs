@@ -11,10 +11,7 @@ namespace WindowsFormsApp3
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            
-            Application.Run(new BlockUs());
+            Application.Run(new BlockUsGame());
         }
     }
 }
