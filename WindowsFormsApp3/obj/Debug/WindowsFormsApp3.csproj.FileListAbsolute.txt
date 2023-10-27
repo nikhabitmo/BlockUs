@@ -1,0 +1,14 @@
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.exe.config
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.exe
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.pdb
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.AssemblyReference.cache
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.SuggestedBindingRedirects.cache
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.Properties.Resources.resources
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.GenerateResource.cache
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.CoreCompileInputs.cache
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.exe
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.pdb
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.BlockUs.resources
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nikha\RiderProjects\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.CopyComplete
