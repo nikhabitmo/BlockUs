@@ -25,15 +25,15 @@ namespace WindowsFormsApp3
 
             players = new List<Player>
             {
-                new Player("Player One", Color.Magenta, Color.Cyan),
-                new Player("Player Two", Color.Green, Color.Yellow)
+                new Player("Player One", Color.Green, Color.Blue),
+                new Player("Player Two", Color.Red, Color.Yellow)
             };
             currentPlayer = players[0];
 
             this.Size = new Size(gridSize * cellSize, gridSize * cellSize);
             this.Paint += new PaintEventHandler(OnPaint);
             this.MouseClick += new MouseEventHandler(OnMouseClick);
-
+            this.KeyPress += new KeyPressEventHandler(BlockUs_KeyPress);
             scoreGrid = new int[gridSize, gridSize];
             InitializeComponent();
             for (int i = 0; i < gridSize; i++)
@@ -53,6 +53,16 @@ namespace WindowsFormsApp3
                 {
                     grid[i, j] = Color.White;
                 }
+            }
+        }
+        
+        private void BlockUs_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                SwitchPlayer();
+                playerBlocks.Clear();
+                this.Invalidate();
             }
         }
 
@@ -185,6 +195,55 @@ namespace WindowsFormsApp3
             }
 
             return null;
+        }
+    }
+    
+    public class Block
+    {
+        public bool[,] Shape { get; }
+        public Color Color { get; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        public int Player { get; set; }
+
+        public Block(bool[,] shape, int player, Color color)
+        {
+            Shape = shape;
+            Color = color;
+            Player = player;
+            Width = shape.GetLength(0);
+            Height = shape.GetLength(1);
+        }
+    }
+    
+    public class Player
+    {
+        public string Name { get; }
+        private Color color1;
+        private Color color2;
+        private bool usingColor1;
+
+        public Player(string name, Color color1, Color color2)
+        {
+            Name = name;
+            this.color1 = color1;
+            this.color2 = color2;
+            usingColor1 = true;
+        }
+
+        public Color GetCurrentColor()
+        {
+            if (usingColor1)
+            {
+                usingColor1 = false;
+                return color1;
+            }
+            else
+            {
+                usingColor1 = true;
+                return color2;
+            }
         }
     }
 }
