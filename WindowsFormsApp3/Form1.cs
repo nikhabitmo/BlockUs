@@ -16,7 +16,7 @@ namespace WindowsFormsApp3
         private Player currentPlayer;
         private List<Player> players;
         List<Block> playerBlocks = new List<Block>();
-
+        public int ik = 0;
 
         public BlockUsGame()
         {
@@ -25,7 +25,7 @@ namespace WindowsFormsApp3
 
             players = new List<Player>
             {
-                new Player("Player One", Color.Green, Color.Blue),
+                new Player("Player One", Color.Blue, Color.Green),
                 new Player("Player Two", Color.Red, Color.Yellow)
             };
             currentPlayer = players[0];
@@ -107,20 +107,15 @@ namespace WindowsFormsApp3
             {
                 if (grid[x, y] == Color.White)
                 {
-                    Block block1 = new Block(new bool[,] { { true, true, false } }, players.IndexOf(currentPlayer), currentPlayer.GetCurrentColor());
-                    Block block2 = new Block(new bool[,] { { true, false, false } }, players.IndexOf(currentPlayer), currentPlayer.GetCurrentColor());
-                    Block block3 = new Block(new bool[,] { { true, true, false } }, players.IndexOf(currentPlayer), currentPlayer.GetCurrentColor());
+                    Block block1 = new Block(new bool[,] { { true, true, false } }, players.IndexOf(currentPlayer), currentPlayer._colors[ik]);
+                    Block block2 = new Block(new bool[,] { { true, false, false } }, players.IndexOf(currentPlayer), currentPlayer._colors[ik]);
+                    Block block3 = new Block(new bool[,] { { true, true, false } }, players.IndexOf(currentPlayer), currentPlayer._colors[ik]);
                     playerBlocks.Add(block1);
                     playerBlocks.Add(block2);
                     playerBlocks.Add(block3);
 
-                    grid[x, y] = currentPlayer.GetCurrentColor();
+                    grid[x, y] = currentPlayer._colors[ik];
                     this.Invalidate();
-
-                    if (playerBlocks.Count == 3) {
-                        SwitchPlayer();
-                        playerBlocks.Clear();
-                    }
                 }
             }
 
@@ -134,7 +129,7 @@ namespace WindowsFormsApp3
         private int CalculatePlayerScore(Player player)
         {
             int score = 0;
-            Color playerColor = player.GetCurrentColor();
+            Color playerColor = player._colors[ik];
             for (int i = 0; i < gridSize; i++)
             {
                 for (int j = 0; j < gridSize; j++)
@@ -154,6 +149,7 @@ namespace WindowsFormsApp3
             int currentIndex = players.IndexOf(currentPlayer);
             currentIndex = (currentIndex + 1) % players.Count;
             currentPlayer = players[currentIndex];
+            currentPlayer.ChangeColor();
         }
 
         private void BlockUsGame_Load(object sender, EventArgs e)
@@ -219,31 +215,35 @@ namespace WindowsFormsApp3
     
     public class Player
     {
+        public int ik = 0;
         public string Name { get; }
         private Color color1;
         private Color color2;
-        private bool usingColor1;
+        public bool usingColor1;
+        public List<Color> _colors { get; private set; }
 
         public Player(string name, Color color1, Color color2)
         {
             Name = name;
             this.color1 = color1;
             this.color2 = color2;
-            usingColor1 = true;
+            _colors = new List<Color>();
+            _colors.Add(color1);
+            _colors.Add(color2);
         }
 
-        public Color GetCurrentColor()
+        public Color ChangeColor()
         {
-            if (usingColor1)
+            if (ik == 1)
             {
-                usingColor1 = false;
-                return color1;
+                ik = 0;
             }
             else
             {
-                usingColor1 = true;
-                return color2;
+                ik = 1;
             }
+
+            return _colors[ik];
         }
     }
 }
