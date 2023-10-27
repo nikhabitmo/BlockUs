@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp3
 {
-    partial class BlockUs
+    partial class BlockUsGame
     {
         /// <summary>
         /// Required designer variable.
@@ -38,13 +38,13 @@
             this.timer1.Enabled = true;
             this.timer1.SynchronizingObject = this;
             // 
-            // BlockUs
+            // BlockUsGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LavenderBlush;
-            this.ClientSize = new System.Drawing.Size(1232, 987);
-            this.Name = "BlockUs";
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ClientSize = new System.Drawing.Size(1238, 1004);
+            this.Name = "BlockUsGame";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.timer1)).EndInit();
             this.ResumeLayout(false);

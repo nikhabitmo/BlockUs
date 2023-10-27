@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
-
 
 namespace WindowsFormsApp3
 {
-    public partial class BlockUs : Form
+    public partial class BlockUsGame : Form
     {
         private const int gridSize = 20;
         private const int cellSize = 30;
@@ -17,15 +16,15 @@ namespace WindowsFormsApp3
         private Player currentPlayer;
         private List<Player> players;
 
-        public BlockUs()
+        public BlockUsGame()
         {
             grid = new Color[gridSize, gridSize];
             InitializeGrid();
 
             players = new List<Player>
             {
-                new Player("Player 1", Color.Red, Color.Green),
-                new Player("Player 2", Color.Blue, Color.Yellow)
+                new Player("Player One", Color.Magenta, Color.Cyan),
+                new Player("Player Two", Color.Green, Color.Yellow)
             };
             currentPlayer = players[0];
 
@@ -35,11 +34,6 @@ namespace WindowsFormsApp3
 
             scoreGrid = new int[gridSize, gridSize];
             InitializeComponent();
-            InitializeScoreGrid();
-        }
-
-        private void InitializeScoreGrid()
-        {
             for (int i = 0; i < gridSize; i++)
             {
                 for (int j = 0; j < gridSize; j++)
@@ -48,25 +42,6 @@ namespace WindowsFormsApp3
                 }
             }
         }
-
-        private int CalculatePlayerScore(Player player)
-        {
-            int score = 0;
-            Color playerColor = player.GetCurrentColor();
-            for (int i = 0; i < gridSize; i++)
-            {
-                for (int j = 0; j < gridSize; j++)
-                {
-                    if (grid[i, j] == playerColor)
-                    {
-                        score += 1;
-                    }
-                }
-            }
-
-            return score;
-        }
-
 
         private void InitializeGrid()
         {
@@ -77,6 +52,24 @@ namespace WindowsFormsApp3
                     grid[i, j] = Color.White;
                 }
             }
+        }
+
+        private Player DetermineWinner()
+        {
+            int maxScore = 216;
+            Player winner = null;
+
+            foreach (var player in players)
+            {
+                int score = CalculatePlayerScore(player);
+                if (score > maxScore)
+                {
+                    maxScore = score;
+                    winner = player;
+                }
+            }
+
+            return winner;
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
@@ -107,30 +100,30 @@ namespace WindowsFormsApp3
                     SwitchPlayer();
                 }
             }
-            
+
             var winner = DetermineWinner();
             if (winner != null)
             {
-                MessageBox.Show("The winner is: " + winner.Name);
+                MessageBox.Show(@"The winner is: " + winner.Name);
             }
         }
 
-        private Player DetermineWinner()
+        private int CalculatePlayerScore(Player player)
         {
-            int maxScore = 100;
-            Player winner = null;
-
-            foreach (Player player in players)
+            int score = 0;
+            Color playerColor = player.GetCurrentColor();
+            for (int i = 0; i < gridSize; i++)
             {
-                int score = CalculatePlayerScore(player);
-                if (score > maxScore)
+                for (int j = 0; j < gridSize; j++)
                 {
-                    maxScore = score;
-                    winner = player;
+                    if (grid[i, j] == playerColor)
+                    {
+                        score += 1;
+                    }
                 }
             }
 
-            return winner;
+            return score;
         }
 
         private void SwitchPlayer()
@@ -140,7 +133,7 @@ namespace WindowsFormsApp3
             currentPlayer = players[currentIndex];
         }
 
-        private void BlockUs_Load(object sender, EventArgs e)
+        private void BlockUsGame_Load(object sender, EventArgs e)
         {
         }
 
@@ -155,36 +148,6 @@ namespace WindowsFormsApp3
         }
     }
 
-    public class Player
-    {
-        public string Name { get; }
-        private Color color1;
-        private Color color2;
-        private bool usingColor1;
-
-        public Player(string name, Color color1, Color color2)
-        {
-            Name = name;
-            this.color1 = color1;
-            this.color2 = color2;
-            usingColor1 = true;
-        }
-
-        public Color GetCurrentColor()
-        {
-            if (usingColor1)
-            {
-                usingColor1 = false;
-                return color1;
-            }
-            else
-            {
-                usingColor1 = true;
-                return color2;
-            }
-        }
-    }
-
     [Serializable]
     public class GameState
     {
@@ -192,7 +155,6 @@ namespace WindowsFormsApp3
         public int[,] ScoreGrid { get; set; }
         public List<Player> Players { get; set; }
         public Player CurrentPlayer { get; set; }
-
 
         public void SaveGameState(GameState gameState, string filePath)
         {
@@ -209,25 +171,6 @@ namespace WindowsFormsApp3
             }
 
             return null;
-        }
-    }
-    
-    public class Block
-    {
-        public bool[,] Shape { get; }
-        public Color Color { get; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-
-        public int Player { get; set; }
-
-        public Block(bool[,] shape, int player, Color color)
-        {
-            Shape = shape;
-            Color = color;
-            Player = player;
-            Width = shape.GetLength(0);
-            Height = shape.GetLength(1);
         }
     }
 }
