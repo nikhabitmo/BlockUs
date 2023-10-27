@@ -161,6 +161,7 @@ namespace WindowsFormsApp3
         }
     }
 
+
     [Serializable]
     public class GameState
     {
